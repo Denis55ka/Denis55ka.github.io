@@ -1,0 +1,24 @@
+# Подписи интерфейса страниц. Текст самих документов лежит в .md, здесь только обвязка.
+ru:
+  contents: Содержание
+  version: Редакция
+  effective: Дата вступления в силу
+  application: Приложение
+  developer: Разработчик (оператор данных)
+  contact: Контакт по вопросам конфиденциальности
+  channels: Каналы распространения
+  effective_from: "Документ действует с"
+  version_short: "Редакция"
+  other_lang: English version
+
+en:
+  contents: Contents
+  version: Version
+  effective: Effective date
+  application: Application
+  developer: Developer (data controller)
+  contact: Privacy contact
+  channels: Distribution channels
+  effective_from: "Effective from"
+  version_short: "Version"
+  other_lang: Русская редакция

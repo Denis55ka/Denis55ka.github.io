@@ -1,0 +1,19 @@
+title: denis55ka.app
+description: Сайт разработчика Дениса Кармышакова и приложения D-Konnect.
+url: https://denis55ka.app
+lang: ru
+
+# Плагины на GitHub Pages ограничены белым списком; ничего сверх стандартного не используется.
+markdown: kramdown
+
+kramdown:
+  input: GFM
+  # Заголовки получают id только там, где он задан явно через {: #...} — автогенерация
+  # из текста дала бы адреса вида #1-кратко, которые сломаются при первой правке формулировки.
+  auto_ids: false
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

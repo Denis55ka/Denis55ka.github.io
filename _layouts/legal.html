@@ -1,0 +1,151 @@
+{%- assign t = site.data.i18n[page.lang] -%}
+<!doctype html>
+<html lang="{{ page.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.short_title }} — D-Konnect</title>
+  <meta name="description" content="{{ page.description }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <link rel="alternate" hreflang="ru" href="{{ site.url }}{{ page.url_ru }}">
+  <link rel="alternate" hreflang="en" href="{{ site.url }}{{ page.url_en }}">
+  {%- comment -%}
+    x-default ведёт на страницу выбора языка, а не на одну из редакций — она для этого и нужна.
+  {%- endcomment -%}
+  <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ page.url_root }}">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap top__inner">
+      <a class="brand" href="/"><span class="brand__dot"></span>D-Konnect</a>
+      <div class="lang">
+        <a href="{{ page.url_ru }}"{% if page.lang == 'ru' %} aria-current="page"{% endif %}>Ru</a>
+        <a href="{{ page.url_en }}"{% if page.lang == 'en' %} aria-current="page"{% endif %}>En</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <div class="head">
+      <div class="head__kicker">{{ page.kicker }}</div>
+      <h1>{{ page.title }}</h1>
+
+      <div class="meta">
+        <div class="meta__row">
+          <span class="meta__k">{{ t.version }}</span>
+          <span class="meta__v">{{ page.version }}</span>
+        </div>
+        <div class="meta__row">
+          <span class="meta__k">{{ t.effective }}</span>
+          <span class="meta__v">{{ page.effective }}</span>
+        </div>
+        <div class="meta__row">
+          <span class="meta__k">{{ t.application }}</span>
+          <span class="meta__v">{{ page.application }}, <code>{{ page.package }}</code></span>
+        </div>
+        <div class="meta__row">
+          <span class="meta__k">{{ t.developer }}</span>
+          <span class="meta__v">{{ page.developer }}</span>
+        </div>
+        <div class="meta__row">
+          <span class="meta__k">{{ t.contact }}</span>
+          <span class="meta__v"><a href="mailto:{{ page.contact }}">{{ page.contact }}</a></span>
+        </div>
+        <div class="meta__row">
+          <span class="meta__k">{{ t.channels }}</span>
+          <span class="meta__v">{{ page.channels }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="body">
+
+      <nav class="toc" aria-label="{{ t.contents }}" hidden>
+        <h2>{{ t.contents }}</h2>
+        <ol id="tocList"></ol>
+      </nav>
+
+      <article class="prose">
+        {{ content }}
+      </article>
+
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="wrap foot__inner">
+      <span>{{ t.effective_from }} {{ page.effective }}</span>
+      <span class="mono">{{ t.version_short }} {{ page.version }}</span>
+      {%- if page.lang == 'ru' %}
+      <a href="{{ page.url_en }}">{{ t.other_lang }}</a>
+      {%- else %}
+      <a href="{{ page.url_ru }}">{{ t.other_lang }}</a>
+      {%- endif %}
+      <a href="mailto:{{ page.contact }}">{{ page.contact }}</a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* Оглавление строится из самих заголовков: отдельного списка разделов
+         нигде нет, поэтому он не может разойтись с документом. Короткая
+         подпись берётся из data-toc, если заголовок слишком длинный. */
+      var headings = Array.prototype.slice.call(
+        document.querySelectorAll(".prose h2[id]")
+      );
+
+      var nav = document.querySelector(".toc");
+      var list = document.getElementById("tocList");
+      if (!headings.length || !nav || !list) return;
+
+      var links = [];
+      var section = 0;
+
+      headings.forEach(function (h) {
+        var mark = h.getAttribute("data-mark");
+        if (!mark) {
+          section += 1;
+          mark = section < 10 ? "0" + section : String(section);
+        }
+
+        var li = document.createElement("li");
+        var a = document.createElement("a");
+        a.href = "#" + h.id;
+        a.setAttribute("data-mark", mark);
+        a.textContent = h.getAttribute("data-toc") || h.textContent.trim();
+
+        li.appendChild(a);
+        list.appendChild(li);
+        links.push(a);
+      });
+
+      nav.hidden = false;
+
+      if (!("IntersectionObserver" in window)) return;
+
+      var visible = {};
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+
+        var current = null;
+        for (var i = 0; i < headings.length; i++) {
+          if (visible[headings[i].id]) { current = i; break; }
+        }
+
+        if (current === null) return;
+        links.forEach(function (a) { a.classList.remove("is-active"); });
+        links[current].classList.add("is-active");
+      }, { rootMargin: "-10% 0px -70% 0px", threshold: 0 });
+
+      headings.forEach(function (h) { io.observe(h); });
+    })();
+  </script>
+
+</body>
+</html>
