@@ -5,7 +5,7 @@ kicker: Documents · D-Konnect
 title: Privacy Policy for D-Konnect
 short_title: Privacy Policy
 description: "Privacy Policy for the D-Konnect app: what data is processed, who receives it, and what rights you have."
-version: "1.1"
+version: "1.2"
 effective: 15 August 2026
 application: D-Konnect (DKonnect)
 package: app.denis55ka.dkonnect
@@ -17,7 +17,7 @@ url_en: /dkonnect/privacy/en/
 url_root: /dkonnect/privacy/
 ---
 
-This Policy explains what data the D-Konnect application processes, why, who receives it, and what rights you have. It applies to every distribution channel (app stores and direct APK installation). Differences between store builds are listed in **Appendix A** and concern only the set of third-party components included.
+This Policy explains what data the D-Konnect application processes, why, who receives it, and what rights you have. It applies to every distribution channel (app stores and direct APK installation): one and the same build is published to all of them, so the set of third-party components is identical everywhere. That set is listed in **Appendix A**.
 {: .lead}
 
 ## Summary
@@ -26,7 +26,7 @@ This Policy explains what data the D-Konnect application processes, why, who rec
 - The app requires **no account and no registration**. We do not ask for your name, e-mail or phone number, and we do not create a server-side user profile.
 - The app has **no backend of our own**. Vehicle readings, settings, indicators, formulas and measurement history are stored **only on your device** and are never sent to us.
 - The app **does not collect or store your geographic coordinates**. The location permission is used to obtain **speed** and **altitude** from the system for the corresponding indicators.
-- What does leave the device is **anonymous technical telemetry** (crash reports and aggregated launch statistics) and the data required by the ad network. **The ad network is present in every build of the app**; the rest of the third-party services depend on the distribution channel (Appendix A).
+- What does leave the device is **anonymous technical telemetry** (crash reports and aggregated launch statistics) and the data required by the ad network. **Both are present in every build of the app**, whichever channel you installed it from (Appendix A).
 - **Personalised ads can be switched off inside the app** — Settings → Privacy. Where the law requires consent to be obtained in advance (the EEA, the United Kingdom, Switzerland) the switch starts **off**, and turning it on is what gives that consent; elsewhere it starts on and can be turned off at any moment. Ads are shown either way: the switch decides how they are chosen, not whether they appear (section 5).
 - We **do not sell** user data and do not share it with third parties for their own independent use, other than as described in sections 5 and 6.
 
@@ -78,7 +78,7 @@ The legal basis for this processing is the developer's legitimate interest in ke
 ## Third-party services
 {: #s5}
 
-The set of third-party components **depends on the distribution channel** of your build. The full list, with links to each provider's policy, is in [Appendix A](#appendix). We pass these services only the data listed in section 4 and Appendix A; each provider processes it under its own policy.
+The same set of third-party components is present in **every** build, whatever the distribution channel. The full list, with links to each provider's policy, is in [Appendix A](#appendix). We pass these services only the data listed in section 4 and Appendix A; each provider processes it under its own policy.
 
 Categories of services used:
 
@@ -101,14 +101,11 @@ What "off" does *not* stop is crash reporting itself and the aggregated audience
 
 Independently of this setting, Android's own settings let you reset or delete the advertising identifier for every app at once ("Privacy" → "Ads").
 
-### AppMetrica as part of the ad SDK
+### AppMetrica serves two purposes at once
 
-The Yandex Mobile Ads SDK ships together with the AppMetrica library: it enters the app as a dependency of the ad SDK, in every distribution channel. How it behaves differs:
+The Yandex Mobile Ads SDK ships together with the AppMetrica library, which therefore enters the app as a dependency of the ad SDK. The app also **activates** AppMetrica with its own key and uses it as its crash reporting and audience metrics service (section 4). Both are true of every build.
 
-- in a build where the app **activates** AppMetrica with its own key, the service additionally performs the task declared for that channel — crash reporting and aggregated audience metrics (section 4);
-- in a build where the app **does not activate** it with its own key, AppMetrica runs in a limited ("simplified") mode: the app sends no events of its own through it, and the library processes only the technical device information and identifiers the ad SDK needs.
-
-Which of the two modes applies to your build is stated in [Appendix A](#appendix).
+So the same library serves two purposes in parallel: the ad SDK's own technical needs, under Yandex's key, and ours, under the app's key. It is listed once in [Appendix A](#appendix) and the data column covers both.
 
 ## In-app purchases
 {: #s6}
@@ -180,33 +177,18 @@ For any privacy or data protection question:
 
 [legal@denis55ka.app](mailto:legal@denis55ka.app){: .contact}
 
-## Appendix A. Third-party services by distribution channel
-{: #appendix data-mark="A" data-toc="Services by channel"}
+## Appendix A. Third-party services
+{: #appendix data-mark="A" data-toc="Third-party services"}
 
-The following lists which third-party components are included in the build for each channel. A component not listed for a channel is **absent** from that build — its SDK is not shipped.
-
-### A.1. Google Play
+One and the same build is published to every distribution channel, so this list applies whichever way you installed the app. A component not listed here is **absent** — its SDK is not shipped.
 
 | Service | Provider | Purpose | Data | Policy |
 |---|---|---|---|---|
-| Firebase Crashlytics | Google | crash reporting | device model, OS and app version, stack trace, technical action trail, installation identifier | [firebase.google.com/support/privacy](https://firebase.google.com/support/privacy) |
-| Firebase Analytics | Google | aggregated audience metrics (launches, sessions, retention) | automatically collected session events, installation identifier, advertising identifier (`AD_ID`) — the last only while personalised ads are on (section 5) | [firebase.google.com/support/privacy](https://firebase.google.com/support/privacy) |
-| Google Play Billing | Google | in-app purchases, where available | the fact of a purchase; payment details are handled by the store | [policies.google.com/privacy](https://policies.google.com/privacy) |
+| AppMetrica | Yandex LLC | crash reporting and aggregated audience metrics, and at the same time the technical service of the ad SDK (section 5) | device model, OS and app version, stack trace, technical action trail, installation identifier; advertising identifier only while personalised ads are on (section 5) | [yandex.com/legal/metrica_termsofuse](https://yandex.com/legal/metrica_termsofuse/) |
 | Yandex Mobile Ads | Yandex LLC | advertising | advertising identifier (only while personalised ads are on — section 5), device and network information, approximate location from IP, impression data | [yandex.com/legal/confidential](https://yandex.com/legal/confidential/) |
-| AppMetrica (as part of the ad SDK) | Yandex LLC | technical support of the ad SDK | installation identifier and the device information the ad SDK requires | [yandex.com/legal/metrica_termsofuse](https://yandex.com/legal/metrica_termsofuse/) |
 
-In the Google Play build AppMetrica is **not activated** with the app's own key and runs in the limited mode (section 5): crash reporting and audience metrics in this channel are handled by the Firebase services.
+**No payment component is currently shipped.** The app offers no paid features, so neither Google Play Billing nor RuStore billing is included in the build. Section 6 describes how purchases would be handled if paid features appear; the billing service of the corresponding store will be added to this table in the same release.
 
-### A.2. RuStore
+**No Google analytics or crash reporting service is shipped either.** Earlier versions of the app used Firebase Crashlytics and Firebase Analytics in the Google Play build; they have been removed, and AppMetrica now performs both tasks in every channel. The build does contain Google libraries that supply the advertising identifier and the App Set ID to the SDKs above (`play-services-ads-identifier`, `play-services-appset`); these read identifiers on the device and are not themselves recipients of your data.
 
-| Service | Provider | Purpose | Data | Policy |
-|---|---|---|---|---|
-| AppMetrica | Yandex LLC | crash reporting and aggregated audience metrics | device model, OS and app version, stack trace, technical action trail, installation identifier; advertising identifier only while personalised ads are on (section 5) | [yandex.com/legal/metrica_termsofuse](https://yandex.com/legal/metrica_termsofuse/) |
-| Yandex Mobile Ads | Yandex LLC | advertising | advertising identifier (only while personalised ads are on — section 5), device and network information, approximate location from IP, impression data | [yandex.com/legal/confidential](https://yandex.com/legal/confidential/) |
-| RuStore billing | VK | in-app purchases, where available | the fact of a purchase; payment details are handled by the store | [rustore.ru/help/rules](https://www.rustore.ru/help/rules/) |
-
-In the RuStore build AppMetrica **is activated** with the app's own key and runs in full mode: it is the same service that serves the ad SDK and, at the same time, the crash reporting and aggregated audience metrics service for this channel. It is not listed twice above.
-
-### A.3. Other distribution channels
-
-Builds distributed by other means (direct APK installation, alternative stores) are covered by the same Policy. Such a build is produced from the same configuration as one of those described above, so section A.1 or A.2 applies to it accordingly. The advertising network is present either way. If a configuration with a different set of third-party services appears, it will be added to this Appendix when it is released.
+If a build with a different set of third-party services is released, this Appendix will be updated in the same release.
