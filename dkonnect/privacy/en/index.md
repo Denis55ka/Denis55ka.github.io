@@ -5,8 +5,8 @@ kicker: Documents · D-Konnect
 title: Privacy Policy for D-Konnect
 short_title: Privacy Policy
 description: "Privacy Policy for the D-Konnect app: what data is processed, who receives it, and what rights you have."
-version: "1.0"
-effective: 10 August 2026
+version: "1.1"
+effective: 15 August 2026
 application: D-Konnect (DKonnect)
 package: app.denis55ka.dkonnect
 developer: Denis Karmyshakov, independent developer
@@ -27,6 +27,7 @@ This Policy explains what data the D-Konnect application processes, why, who rec
 - The app has **no backend of our own**. Vehicle readings, settings, indicators, formulas and measurement history are stored **only on your device** and are never sent to us.
 - The app **does not collect or store your geographic coordinates**. The location permission is used to obtain **speed** and **altitude** from the system for the corresponding indicators.
 - What does leave the device is **anonymous technical telemetry** (crash reports and aggregated launch statistics) and the data required by the ad network. **The ad network is present in every build of the app**; the rest of the third-party services depend on the distribution channel (Appendix A).
+- **Personalised ads can be switched off inside the app** — Settings → Privacy. Where the law requires consent to be obtained in advance (the EEA, the United Kingdom, Switzerland) the switch starts **off**, and turning it on is what gives that consent; elsewhere it starts on and can be turned off at any moment. Ads are shown either way: the switch decides how they are chosen, not whether they appear (section 5).
 - We **do not sell** user data and do not share it with third parties for their own independent use, other than as described in sections 5 and 6.
 
 ## Data processed and kept on your device
@@ -70,9 +71,9 @@ The app processes operational data on the device and, to the extent described be
 
 - **Crash reports:** device make and model, OS version, app version, stack trace, crash time and a short technical trail of recent in-app actions (for example, "connection started", "adapter responded"). This trail contains no vehicle readings, no coordinates and no names you have typed.
 - **Aggregated usage statistics:** app launches and session duration, which feed audience metrics (active users, retention). We do not send custom events containing your profiles, indicators or formulas.
-- **Identifiers:** third-party SDKs generate their own installation identifier and may use the device advertising identifier. The installation identifier is reset on reinstall and is not linked to your identity.
+- **Identifiers:** third-party SDKs generate their own installation identifier, and use the device advertising identifier **only while personalised ads are switched on** (section 5). The installation identifier is reset on reinstall and is not linked to your identity.
 
-The legal basis for this processing is the developer's legitimate interest in keeping the app functional and stable (see section 8). This collection can be stopped by uninstalling the app; there is currently no separate in-app toggle.
+The legal basis for this processing is the developer's legitimate interest in keeping the app functional and stable (see section 8). There is **no in-app toggle for crash reports and usage statistics**; this collection stops when the app is uninstalled. Use of the advertising identifier **for personalised advertising** is a separate question with its own control — see section 5.
 
 ## Third-party services
 {: #s5}
@@ -83,8 +84,22 @@ Categories of services used:
 
 1. **Crash reporting and technical diagnostics** — required to ship stable updates.
 2. **Aggregated usage analytics** — audience-level metrics only.
-3. **Advertising network** — present in **every** build of the app. An ad network may process the advertising identifier, device information and approximate location derived from the IP address in order to select and count impressions. Ads are never shown on the dashboard screen while driving.
+3. **Advertising network** — present in **every** build of the app. An ad network may process the advertising identifier, device information and approximate location derived from the IP address in order to select and count impressions. What it is allowed to use for that depends on your choice — see "Personalised ads and your choice" below. Ads are never shown on the dashboard screen while driving.
 4. **App store payment processing** — if purchases are available in your build (section 6).
+
+### Personalised ads and your choice
+
+The app **shows no consent dialog**. The starting position of the setting is decided by the jurisdiction the device appears to be in, and you can change it at any time.
+
+**How the starting position is decided.** The app makes no network request to establish this: it reads the country of the SIM card, the country of the mobile network, the region of the device's own language setting and the region of the device time zone. If any of them points to the European Economic Area, the United Kingdom or Switzerland — or if none of them answers at all — the app starts with personalisation **off**. Everywhere else it starts on. These signals are read on the device and are not transmitted or stored.
+
+**The control.** Settings → Privacy → "Personalised ads". It can be moved in either direction, as many times as you like: withdrawing is exactly as easy as giving. Your choice and the date you made it are kept on the device and sent nowhere.
+
+**What "off" means.** The ad SDK is instructed not to use the advertising identifier, not to use the approximate location, and not to carry out install and attribution reporting. **Ads are still shown**, selected without those signals. The same choice reaches the crash-reporting and analytics SDK of section 4, which then collects no advertising identifier either — the switch is not limited to the ad network.
+
+What "off" does *not* stop is crash reporting itself and the aggregated audience metrics: those stand on a different basis, have no in-app toggle, and once the switch is off they carry no advertising identifier.
+
+Independently of this setting, Android's own settings let you reset or delete the advertising identifier for every app at once ("Privacy" → "Ads").
 
 ### AppMetrica as part of the ad SDK
 
@@ -94,8 +109,6 @@ The Yandex Mobile Ads SDK ships together with the AppMetrica library: it enters 
 - in a build where the app **does not activate** it with its own key, AppMetrica runs in a limited ("simplified") mode: the app sends no events of its own through it, and the library processes only the technical device information and identifiers the ad SDK needs.
 
 Which of the two modes applies to your build is stated in [Appendix A](#appendix).
-
-The advertising identifier can be reset or opted out of in Android settings ("Privacy" → "Ads").
 
 ## In-app purchases
 {: #s6}
@@ -115,7 +128,8 @@ The backup is handled by your device's system backup service, not by the develop
 This Policy is written to satisfy the law of the jurisdictions the app is distributed in, in particular:
 
 - **Russian Federation:** Federal Law No. 152-FZ of 27 July 2006 "On Personal Data". No personal data is processed on the developer's servers — there is no such infrastructure; local data is processed on the user's device.
-- **EEA and United Kingdom:** Regulation (EU) 2016/679 (GDPR). Legal bases: *consent* — for location access, Bluetooth access and personalised advertising (given through the system permission dialog or a dedicated consent screen); *legitimate interest* — for crash diagnostics and aggregated statistics needed to keep the app working; *performance of a contract* — for providing the app's functionality and any purchased features.
+- **EEA, United Kingdom and Switzerland:** Regulation (EU) 2016/679 (GDPR) and the equivalent UK and Swiss rules. Legal bases: *consent* — for location access and Bluetooth access (given through the system permission dialog) and for personalised advertising (given by turning on the switch described in section 5, which starts off in these countries, so no personalisation takes place until you act); *legitimate interest* — for crash diagnostics and aggregated statistics needed to keep the app working; *performance of a contract* — for providing the app's functionality and any purchased features.
+- **United States (California and states with comparable laws):** these give you the right to opt out of the "sale" or "sharing" of personal information for targeted advertising. The switch in Settings → Privacy is that opt-out. We do not exchange user data for money.
 
 The third-party services listed in Appendix A may process data outside your country; such transfers take place under those providers' own terms.
 
@@ -133,7 +147,7 @@ You may:
 - **be informed** about what data is processed — this Policy is the complete list;
 - **delete your data** — through in-app functions, through the system "Clear data" action, or by uninstalling the app; local deletion is complete and irreversible;
 - **withdraw permissions** (location, Bluetooth, notifications) in Android settings;
-- **limit ad profiling** by resetting or opting out of the advertising identifier in Android settings;
+- **turn off personalised ads** with the switch in the app (Settings → Privacy), and additionally reset or opt out of the advertising identifier in Android settings;
 - **contact the developer** (see section 15 "Contact") to request access, correction or erasure, or to complain. We respond within 30 days. Please note that, because the app has no accounts, we have no technical means to link an anonymous crash report to a specific person; in such cases we will help you delete on-device data and point you to the relevant provider;
 - **lodge a complaint with a supervisory authority** in your country of residence (in the EEA/UK, your data protection authority; in Russia, Roskomnadzor).
 
@@ -176,9 +190,9 @@ The following lists which third-party components are included in the build for e
 | Service | Provider | Purpose | Data | Policy |
 |---|---|---|---|---|
 | Firebase Crashlytics | Google | crash reporting | device model, OS and app version, stack trace, technical action trail, installation identifier | [firebase.google.com/support/privacy](https://firebase.google.com/support/privacy) |
-| Firebase Analytics | Google | aggregated audience metrics (launches, sessions, retention) | automatically collected session events, installation identifier, advertising identifier (`AD_ID`) | [firebase.google.com/support/privacy](https://firebase.google.com/support/privacy) |
+| Firebase Analytics | Google | aggregated audience metrics (launches, sessions, retention) | automatically collected session events, installation identifier, advertising identifier (`AD_ID`) — the last only while personalised ads are on (section 5) | [firebase.google.com/support/privacy](https://firebase.google.com/support/privacy) |
 | Google Play Billing | Google | in-app purchases, where available | the fact of a purchase; payment details are handled by the store | [policies.google.com/privacy](https://policies.google.com/privacy) |
-| Yandex Mobile Ads | Yandex LLC | advertising | advertising identifier, device and network information, approximate location from IP, impression data | [yandex.com/legal/confidential](https://yandex.com/legal/confidential/) |
+| Yandex Mobile Ads | Yandex LLC | advertising | advertising identifier (only while personalised ads are on — section 5), device and network information, approximate location from IP, impression data | [yandex.com/legal/confidential](https://yandex.com/legal/confidential/) |
 | AppMetrica (as part of the ad SDK) | Yandex LLC | technical support of the ad SDK | installation identifier and the device information the ad SDK requires | [yandex.com/legal/metrica_termsofuse](https://yandex.com/legal/metrica_termsofuse/) |
 
 In the Google Play build AppMetrica is **not activated** with the app's own key and runs in the limited mode (section 5): crash reporting and audience metrics in this channel are handled by the Firebase services.
@@ -187,8 +201,8 @@ In the Google Play build AppMetrica is **not activated** with the app's own key 
 
 | Service | Provider | Purpose | Data | Policy |
 |---|---|---|---|---|
-| AppMetrica | Yandex LLC | crash reporting and aggregated audience metrics | device model, OS and app version, stack trace, technical action trail, installation identifier | [yandex.com/legal/metrica_termsofuse](https://yandex.com/legal/metrica_termsofuse/) |
-| Yandex Mobile Ads | Yandex LLC | advertising | advertising identifier, device and network information, approximate location from IP, impression data | [yandex.com/legal/confidential](https://yandex.com/legal/confidential/) |
+| AppMetrica | Yandex LLC | crash reporting and aggregated audience metrics | device model, OS and app version, stack trace, technical action trail, installation identifier; advertising identifier only while personalised ads are on (section 5) | [yandex.com/legal/metrica_termsofuse](https://yandex.com/legal/metrica_termsofuse/) |
+| Yandex Mobile Ads | Yandex LLC | advertising | advertising identifier (only while personalised ads are on — section 5), device and network information, approximate location from IP, impression data | [yandex.com/legal/confidential](https://yandex.com/legal/confidential/) |
 | RuStore billing | VK | in-app purchases, where available | the fact of a purchase; payment details are handled by the store | [rustore.ru/help/rules](https://www.rustore.ru/help/rules/) |
 
 In the RuStore build AppMetrica **is activated** with the app's own key and runs in full mode: it is the same service that serves the ad SDK and, at the same time, the crash reporting and aggregated audience metrics service for this channel. It is not listed twice above.
