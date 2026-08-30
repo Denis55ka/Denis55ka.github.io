@@ -5,8 +5,8 @@ kicker: Documents · D-Konnect
 title: Privacy Policy for D-Konnect
 short_title: Privacy Policy
 description: "Privacy Policy for the D-Konnect app: what data is processed, who receives it, and what rights you have."
-version: "1.2"
-effective: 15 August 2026
+version: "1.3"
+effective: 30 August 2026
 application: D-Konnect (DKonnect)
 package: app.denis55ka.dkonnect
 developer: Denis Karmyshakov, independent developer
@@ -17,7 +17,7 @@ url_en: /dkonnect/privacy/en/
 url_root: /dkonnect/privacy/
 ---
 
-This Policy explains what data the D-Konnect application processes, why, who receives it, and what rights you have. It applies to every distribution channel (app stores and direct APK installation): one and the same build is published to all of them, so the set of third-party components is identical everywhere. That set is listed in **Appendix A**.
+This Policy explains what data the D-Konnect application processes, why, who receives it, and what rights you have. It applies to every distribution channel (app stores and direct APK installation), but the set of third-party components **differs** between them: the Google Play build carries one service more — a second recipient of crash reports. Appendix A lists the full set and says which channel each component runs in.
 {: .lead}
 
 ## Summary
@@ -26,7 +26,7 @@ This Policy explains what data the D-Konnect application processes, why, who rec
 - The app requires **no account and no registration**. We do not ask for your name, e-mail or phone number, and we do not create a server-side user profile.
 - The app has **no backend of our own**. Vehicle readings, settings, indicators, formulas and measurement history are stored **only on your device** and are never sent to us.
 - The app **does not collect or store your geographic coordinates**. The location permission is used to obtain **speed** and **altitude** from the system for the corresponding indicators.
-- What does leave the device is **anonymous technical telemetry** (crash reports and aggregated launch statistics) and the data required by the ad network. **Both are present in every build of the app**, whichever channel you installed it from (Appendix A).
+- What does leave the device is **anonymous technical telemetry** (crash reports and usage statistics) and the data required by the ad network. **Both are present in every build of the app**, whichever channel you installed it from. If you installed **from Google Play**, one further service also receives crash reports — Firebase Crashlytics, by Google; the RuStore and direct-APK builds do not contain it (Appendix A).
 - **Personalised ads can be switched off inside the app** — Settings → Privacy. Where the law requires consent to be obtained in advance (the EEA, the United Kingdom, Switzerland) the switch starts **off**, and turning it on is what gives that consent; elsewhere it starts on and can be turned off at any moment. Ads are shown either way: the switch decides how they are chosen, not whether they appear (section 5).
 - We **do not sell** user data and do not share it with third parties for their own independent use, other than as described in sections 5 and 6.
 
@@ -45,7 +45,11 @@ The following is stored in the app's local databases and preference files. We ha
 | Known adapters | MAC address and display name of Bluetooth adapters you have connected to | quick reconnection and the known-devices list |
 | App settings | interface and behaviour preferences | remembering your choices |
 
-**Vehicle identifiers.** The app does not request a VIN and does not tie data to a vehicle automatically. If you create an indicator that reads the VIN or another control-unit identifier, that value is processed and stored **locally**, like any other reading.
+**The VIN and control-unit identifiers.** The app asks the vehicle for its VIN on its own — one request per connection — and shows it on the connection status screen, where there is also a button to ask for it again. The value is held in memory for as long as the app is running: it is not written to the database, not included in backup, and never enters the measurement history.
+
+Neither the VIN nor any other control-unit identifier is **ever sent** to the services in Appendix A — not in crash reports and not in usage statistics; the prohibition is enforced in the app's own code. The technical logs record how much the vehicle answered, never what it answered.
+
+If you create an indicator that reads the VIN or another control-unit identifier, that value is processed like any other reading — which means that, unlike the above, it is stored **locally** and written to the measurement history.
 
 **Deletion.** All of the above is removed when the app is uninstalled, and also via the system "Clear data" function (Settings → Apps → D-Konnect → Storage). Individual items (profiles, indicators, known adapters, history) can be deleted inside the app.
 
@@ -62,23 +66,33 @@ Permissions are requested only when needed, with the reason shown at the time of
 | Foreground service (`FOREGROUND_SERVICE` with the `location` and `connectedDevice` types) | keep reading from the adapter and recording history while the screen is off or the app is in the background — that is, during a drive | recording stops when the app is backgrounded |
 | Notifications (`POST_NOTIFICATIONS`) | show the mandatory notice that background recording is active | Android may restrict background work; recording becomes less reliable |
 
-Any permission can be revoked in Android system settings at any time.
+Beyond those, the app declares service permissions. They are never requested separately and show no dialog, but they appear in the permission list on the app's store page:
+
+| Permission | Purpose |
+|---|---|
+| Internet and network state (`INTERNET`, `ACCESS_NETWORK_STATE`) | sending the data listed in section 4 and loading ads. Vehicle data is never sent over the internet: the adapter link is Bluetooth |
+| Advertising identifier (`com.google.android.gms.permission.AD_ID`) | declared by the ad SDK. The identifier itself is read **only while personalised ads are switched on** (section 5) |
+| Install source (`BIND_GET_INSTALL_REFERRER_SERVICE` and its RuStore counterpart) | install attribution by the ad SDK — see section 4 |
+
+Any permission in the first table can be revoked in Android system settings at any time.
 
 ## Data collected automatically while you use the app
 {: #s4 data-toc="Data collected automatically"}
 
 The app processes operational data on the device and, to the extent described below, sends part of it to third-party services:
 
-- **Crash reports:** device make and model, OS version, app version, stack trace, crash time and a short technical trail of recent in-app actions (for example, "connection started", "adapter responded"). This trail contains no vehicle readings, no coordinates and no names you have typed.
-- **Aggregated usage statistics:** app launches and session duration, which feed audience metrics (active users, retention). We do not send custom events containing your profiles, indicators or formulas.
+- **Crash reports:** device make and model, OS version, app version, stack trace and crash time. A report may carry a short technical trail of recent in-app actions; the same limits that apply to the events below apply to it — it can contain no vehicle readings, no coordinates and no text you have typed. In an app installed from **Google Play**, one and the same report goes to **two** recipients — AppMetrica and Firebase Crashlytics; in the other channels, to AppMetrica alone (Appendix A).
+- **Usage statistics:** app launches and session duration, which feed audience metrics (active users, retention), together with events describing how the app performs for you: which screen is open; the answer to the Bluetooth permission prompt; the course of discovering and connecting an adapter — how many devices were found, whether the connection succeeded, how long it took, which known family the adapter belongs to and why a link dropped; the outcome of the handshake with the vehicle; whether fault codes were read or cleared and how many there were; an indicator added from the catalogue; the length of a search query and the number of rows it found; ads served and shown.
+- **What these events never contain.** The limit is enforced in the app's own code: an event parameter may only be a number, a duration or a value from a closed list. Never sent: the VIN and other control-unit identifiers; the MAC address and the adapter's name — the name is reduced on the device to a family such as `elm327` or to an "unnamed" marker; coordinates, speed and altitude; any vehicle reading; text you have typed — the names of profiles, indicators and formulas, and the content of search queries. An indicator you wrote is reported as `custom`, with neither its identifier nor its name.
 - **Identifiers:** third-party SDKs generate their own installation identifier, and use the device advertising identifier **only while personalised ads are switched on** (section 5). The installation identifier is reset on reinstall and is not linked to your identity.
+- **Install source:** the store the app was installed from (Google Play, RuStore, direct APK). The app asks the system for it and reports it as a property of the installation. Separately from that, the ad SDK reads the details of the ad an install came from (Play Install Referrer and its RuStore counterpart); this attribution happens **only while personalised ads are switched on** (section 5).
 
 The legal basis for this processing is the developer's legitimate interest in keeping the app functional and stable (see section 8). There is **no in-app toggle for crash reports and usage statistics**; this collection stops when the app is uninstalled. Use of the advertising identifier **for personalised advertising** is a separate question with its own control — see section 5.
 
 ## Third-party services
 {: #s5}
 
-The same set of third-party components is present in **every** build, whatever the distribution channel. The full list, with links to each provider's policy, is in [Appendix A](#appendix). We pass these services only the data listed in section 4 and Appendix A; each provider processes it under its own policy.
+The set of third-party components **depends on the channel** the app was installed from: the Google Play build has one more. The full list, with links to each provider's policy, is in [Appendix A](#appendix), which also says which channel each component runs in. We pass these services only the data listed in section 4 and Appendix A; each provider processes it under its own policy.
 
 Categories of services used:
 
@@ -93,9 +107,9 @@ The app **shows no consent dialog**. The starting position of the setting is dec
 
 **How the starting position is decided.** The app makes no network request to establish this: it reads the country of the SIM card, the country of the mobile network, the region of the device's own language setting and the region of the device time zone. If any of them points to the European Economic Area, the United Kingdom or Switzerland — or if none of them answers at all — the app starts with personalisation **off**. Everywhere else it starts on. These signals are read on the device and are not transmitted or stored.
 
-**The control.** Settings → Privacy → "Personalised ads". It can be moved in either direction, as many times as you like: withdrawing is exactly as easy as giving. Your choice and the date you made it are kept on the device and sent nowhere.
+**The control.** Settings → Privacy → "Personalised ads". It can be moved in either direction, as many times as you like: withdrawing is exactly as easy as giving. Your choice and the date you made it are kept on the device: neither we nor the ad network receive them. Android may include them in system backup along with your other settings — deliberately, so that a refusal of personalisation is not lost when you move to a new device (section 7).
 
-**What "off" means.** The ad SDK is instructed not to use the advertising identifier, not to use the approximate location, and not to carry out install and attribution reporting. **Ads are still shown**, selected without those signals. The same choice reaches the crash-reporting and analytics SDK of section 4, which then collects no advertising identifier either — the switch is not limited to the ad network.
+**What "off" means.** The ad SDK is instructed not to use the advertising identifier, not to use the approximate location, and not to carry out install and attribution reporting. **Ads are still shown**, selected without those signals. The same choice reaches AppMetrica, the crash-reporting and analytics service of section 4, which then collects no advertising identifier either — the switch is not limited to the ad network. Firebase Crashlytics, in the Google Play build, collects the advertising identifier under **no** position of the switch: advertising-signal collection is disabled in the build itself and is never turned on.
 
 What "off" does *not* stop is crash reporting itself and the aggregated audience metrics: those stand on a different basis, have no in-app toggle, and once the switch is off they carry no advertising identifier.
 
@@ -103,7 +117,7 @@ Independently of this setting, Android's own settings let you reset or delete th
 
 ### AppMetrica serves two purposes at once
 
-The Yandex Mobile Ads SDK ships together with the AppMetrica library, which therefore enters the app as a dependency of the ad SDK. The app also **activates** AppMetrica with its own key and uses it as its crash reporting and audience metrics service (section 4). Both are true of every build.
+The Yandex Mobile Ads SDK ships together with the AppMetrica library, which therefore enters the app as a dependency of the ad SDK. The app also **activates** AppMetrica with its own key and uses it as its crash reporting and audience metrics service (section 4). Both are true in every channel: AppMetrica carries the analytics and receives crash reports everywhere, Google Play included — where it has a neighbour at the second task.
 
 So the same library serves two purposes in parallel: the ad SDK's own technical needs, under Yandex's key, and ours, under the app's key. It is listed once in [Appendix A](#appendix) and the data column covers both.
 
@@ -115,7 +129,7 @@ If your build offers paid features, payment is processed **by the app store** th
 ## Backup and transfer to a new device
 {: #s7 data-toc="Backup and transfer"}
 
-Android may include app data in system backup and in device-to-device transfer. The backup contains **settings and configuration only**: profiles, indicators, formulas, connection configurations, the list of known adapters (including their MAC addresses) and app preferences. **Measurement history is excluded from backup.**
+Android may include app data in system backup and in device-to-device transfer. The backup contains **settings and configuration only**: profiles, indicators, formulas, connection configurations, the list of known adapters (including their MAC addresses), app preferences and your personalised-ads choice (section 5) — the last of these is included deliberately, so that a refusal of personalisation is not reset on a new device. **Measurement history is excluded from backup.**
 
 The backup is handled by your device's system backup service, not by the developer. Backup can be disabled in Android system settings.
 
@@ -180,15 +194,21 @@ For any privacy or data protection question:
 ## Appendix A. Third-party services
 {: #appendix data-mark="A" data-toc="Third-party services"}
 
-One and the same build is published to every distribution channel, so this list applies whichever way you installed the app. A component not listed here is **absent** — its SDK is not shipped.
+The first table applies to every channel. The second applies only to an app installed from Google Play. A component listed in neither is **absent**: its SDK is shipped in no build.
 
 | Service | Provider | Purpose | Data | Policy |
 |---|---|---|---|---|
-| AppMetrica | Yandex LLC | crash reporting and aggregated audience metrics, and at the same time the technical service of the ad SDK (section 5) | device model, OS and app version, stack trace, technical action trail, installation identifier; advertising identifier only while personalised ads are on (section 5) | [yandex.com/legal/metrica_termsofuse](https://yandex.com/legal/metrica_termsofuse/) |
-| Yandex Mobile Ads | Yandex LLC | advertising | advertising identifier (only while personalised ads are on — section 5), device and network information, approximate location from IP, impression data | [yandex.com/legal/confidential](https://yandex.com/legal/confidential/) |
+| AppMetrica | Yandex LLC | crash reporting and aggregated audience metrics, and at the same time the technical service of the ad SDK (section 5) | device model, OS and app version, stack trace, technical action trail, installation identifier, install store, the usage events listed in section 4; advertising identifier only while personalised ads are on (section 5) | [yandex.com/legal/metrica_termsofuse](https://yandex.com/legal/metrica_termsofuse/) |
+| Yandex Mobile Ads | Yandex LLC | advertising | advertising identifier (only while personalised ads are on — section 5), device and network information, approximate location from IP, impression data, install-source data (only while personalised ads are on) | [yandex.com/legal/confidential](https://yandex.com/legal/confidential/) |
 
-**No payment component is currently shipped.** The app offers no paid features, so neither Google Play Billing nor RuStore billing is included in the build. Section 6 describes how purchases would be handled if paid features appear; the billing service of the corresponding store will be added to this table in the same release.
+**Additionally, in the Google Play build only.** An app installed from Google Play sends its crash reports to a second recipient besides AppMetrica. The RuStore and direct-APK builds do not contain this component.
 
-**No Google analytics or crash reporting service is shipped either.** Earlier versions of the app used Firebase Crashlytics and Firebase Analytics in the Google Play build; they have been removed, and AppMetrica now performs both tasks in every channel. The build does contain Google libraries that supply the advertising identifier and the App Set ID to the SDKs above (`play-services-ads-identifier`, `play-services-appset`); these read identifiers on the device and are not themselves recipients of your data.
+| Service | Provider | Purpose | Data | Policy |
+|---|---|---|---|---|
+| Firebase Crashlytics | Google LLC | crash reporting — a second recipient, in parallel with AppMetrica | device model, OS and app version, stack trace, crash time, technical action trail, the app's installation identifier, plus Firebase's own installation identifier and session data that the library generates itself. The advertising identifier is not collected under any position of the switch in section 5 | [firebase.google.com/support/privacy](https://firebase.google.com/support/privacy) |
+
+**No payment component is currently shipped.** The app offers no paid features, so neither Google Play Billing nor RuStore billing is included in the build. Section 6 describes how purchases would be handled if paid features appear; the billing service of the corresponding store will be added to the first table in the same release.
+
+**Firebase Analytics is shipped in no build.** Earlier versions of the app used it alongside Crashlytics in the Google Play build; analytics in every channel is now AppMetrica's, and what is left of Firebase is crash reporting plus the service libraries it brings with it (Firebase Installations, Firebase Sessions and the report delivery transport). Every build does contain Google libraries that supply the advertising identifier and the App Set ID to the SDKs above (`play-services-ads-identifier`, `play-services-appset`); these read identifiers on the device and are not themselves recipients of your data.
 
 If a build with a different set of third-party services is released, this Appendix will be updated in the same release.
