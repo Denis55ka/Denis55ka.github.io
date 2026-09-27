@@ -5,8 +5,8 @@ kicker: Documents · D-Konnect
 title: Privacy Policy for D-Konnect
 short_title: Privacy Policy
 description: "Privacy Policy for the D-Konnect app: what data is processed, who receives it, and what rights you have."
-version: "1.4"
-effective: 31 August 2026
+version: "1.5"
+effective: 28 September 2026
 application: D-Konnect (DKonnect)
 package: app.denis55ka.dkonnect
 developer: Denis Karmyshakov, independent developer
@@ -151,6 +151,7 @@ The third-party services listed in Appendix A may process data outside your coun
 
 - **Local data** is kept for as long as the app is installed and you have not deleted it; the measurement history is additionally bounded in size, and the oldest records are pruned automatically.
 - **Crash reports and statistics** are retained by the service providers for the periods set in their policies (typically from several months to about 18 months).
+- **Correspondence with the developer** is kept for as long as it is needed to answer you and resolve your question, and is deleted at your request at any time (section 15).
 
 ## Your rights
 {: #s10}
@@ -192,6 +193,8 @@ We may update this Policy when the app's functionality or its set of third-party
 For any privacy or data protection question:
 
 [legal@denis55ka.app](mailto:legal@denis55ka.app){: .contact}
+
+**If you write to us** — at this address, at hello@denis55ka.app, or from the app (Settings → Write to the developer) — we receive your email address, the text of your message and anything you attach to it. A message started from the app opens in your own email client and already contains the app version, the store the installed build was made for, the device model and the Android version: this helps us answer to the point, and you can delete any of it before sending. The app itself sends nothing — the message leaves only when you send it. Correspondence is used solely to answer your request, is not shared with third parties, and is kept in the developer's mailbox with their email provider.
 
 ## Appendix A. Third-party services
 {: #appendix data-mark="A" data-toc="Third-party services"}
