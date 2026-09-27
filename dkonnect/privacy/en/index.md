@@ -5,8 +5,8 @@ kicker: Documents · D-Konnect
 title: Privacy Policy for D-Konnect
 short_title: Privacy Policy
 description: "Privacy Policy for the D-Konnect app: what data is processed, who receives it, and what rights you have."
-version: "1.3"
-effective: 30 August 2026
+version: "1.4"
+effective: 31 August 2026
 application: D-Konnect (DKonnect)
 package: app.denis55ka.dkonnect
 developer: Denis Karmyshakov, independent developer
@@ -109,7 +109,9 @@ The app **shows no consent dialog**. The starting position of the setting is dec
 
 **The control.** Settings → Privacy → "Personalised ads". It can be moved in either direction, as many times as you like: withdrawing is exactly as easy as giving. Your choice and the date you made it are kept on the device: neither we nor the ad network receive them. Android may include them in system backup along with your other settings — deliberately, so that a refusal of personalisation is not lost when you move to a new device (section 7).
 
-**What "off" means.** The ad SDK is instructed not to use the advertising identifier, not to use the approximate location, and not to carry out install and attribution reporting. **Ads are still shown**, selected without those signals. The same choice reaches AppMetrica, the crash-reporting and analytics service of section 4, which then collects no advertising identifier either — the switch is not limited to the ad network. Firebase Crashlytics, in the Google Play build, collects the advertising identifier under **no** position of the switch: advertising-signal collection is disabled in the build itself and is never turned on.
+**What "off" means.** The ad SDK is instructed not to use the advertising identifier and not to carry out install and attribution reporting. **Ads are still shown**, selected without those signals. The same choice reaches AppMetrica, the crash-reporting and analytics service of section 4, which then collects no advertising identifier either — the switch is not limited to the ad network. Firebase Crashlytics, in the Google Play build, collects the advertising identifier under **no** position of the switch: advertising-signal collection is disabled in the build itself and is never turned on.
+
+**Location sits outside the switch.** The ad SDK is barred from reading the device location under **either** position of the switch: the bar is set in the build itself and is never lifted. Geographic coordinates do not leave the device whatever you choose, and whether or not the system location permission has been granted (section 3). The approximate location the ad network derives from the IP address of the request is not covered by that bar — it is computed on their side and is not the device's coordinates.
 
 What "off" does *not* stop is crash reporting itself and the aggregated audience metrics: those stand on a different basis, have no in-app toggle, and once the switch is off they carry no advertising identifier.
 
