@@ -10,6 +10,8 @@ ru:
   effective_from: "Документ действует с"
   version_short: "Редакция"
   other_lang: English version
+  owner: Денис Кармышаков
+  language: Язык
 
 en:
   contents: Contents
@@ -22,3 +24,5 @@ en:
   effective_from: "Effective from"
   version_short: "Version"
   other_lang: Русская редакция
+  owner: Denis Karmyshakov
+  language: Language

@@ -11,18 +11,33 @@
 ```
 _config.yml                                  настройки Jekyll
 _data/i18n.yml                               подписи интерфейса, ru/en
+_layouts/home.html                           макет главной
 _layouts/legal.html                          макет юридических документов
 assets/site.css                              все стили сайта
-index.html                                   denis55ka.app/
+index.html                                   denis55ka.app/                выбор языка
+ru/index.html                                denis55ka.app/ru/
+en/index.html                                denis55ka.app/en/
 dkonnect/privacy/index.html                  .../dkonnect/privacy/         выбор языка
 dkonnect/privacy/ru/index.md                 .../dkonnect/privacy/ru/
 dkonnect/privacy/en/index.md                 .../dkonnect/privacy/en/
 ```
 
-Файлы `.html` не имеют front matter, поэтому Jekyll копирует их как есть, без обработки.
+Файлы `.html` без front matter — обе страницы выбора языка — Jekyll копирует как есть, без
+обработки. У `ru/index.html` и `en/index.html` front matter есть: их собирает макет `home`.
 
 Юридические документы лежат плоско, каждый своим коротким адресом: `dkonnect/privacy/`, дальше
 так же встанут `dkonnect/terms/` и `dkonnect/licenses/`.
+
+## Главная
+
+Устроена так же, как политика: `denis55ka.app/` — страница выбора языка с перенаправлением по
+языку браузера, сама главная — `/ru/` и `/en/`, переключатель Ru/En ведёт прямо на них. Корень
+остаётся адресом «для людей» и `x-default`; ссылка «на сайт» с юридических страниц ведёт на
+главную на языке документа.
+
+Тексты двух страниц — отдельные файлы, оформление — общий макет. Строка про демо и ссылки на
+магазины повторяют листинг приложения (`store/listing/` в репозитории `drive-assist`), поэтому
+меняются вместе с ним.
 
 ## Политика конфиденциальности
 

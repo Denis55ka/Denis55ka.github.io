@@ -1,0 +1,46 @@
+{%- assign t = site.data.i18n[page.lang] -%}
+<!doctype html>
+<html lang="{{ page.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title }}</title>
+  <meta name="description" content="{{ page.description }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <link rel="alternate" hreflang="ru" href="{{ site.url }}{{ page.url_ru }}">
+  <link rel="alternate" hreflang="en" href="{{ site.url }}{{ page.url_en }}">
+  {%- comment -%}
+    x-default — корень сайта, страница выбора языка, как и у политики.
+  {%- endcomment -%}
+  <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ page.url_root }}">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+  <main class="home">
+    <div class="home__inner">
+
+      <div class="home__head">
+        <div class="home__name"><span class="brand__dot"></span>{{ t.owner }}</div>
+        {%- comment -%}
+          Ссылки ведут прямо на /ru/ и /en/, а не на корень: корень сам выбирает язык
+          по браузеру и вернул бы читателя туда, откуда тот только что ушёл.
+        {%- endcomment %}
+        <nav class="lang" aria-label="{{ t.language }}">
+          <a href="{{ page.url_ru }}" lang="ru"{% if page.lang == 'ru' %} aria-current="page"{% endif %}>Ru</a>
+          <a href="{{ page.url_en }}" lang="en"{% if page.lang == 'en' %} aria-current="page"{% endif %}>En</a>
+        </nav>
+      </div>
+
+      {{ content }}
+
+      <div class="home__foot">
+        <span>© 2026 {{ t.owner }}</span>
+        <a href="mailto:hello@denis55ka.app">hello@denis55ka.app</a>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>

@@ -3,42 +3,71 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Денис Кармышаков — Android-разработчик</title>
-  <meta name="description" content="Денис Кармышаков — Android-разработчик. D-Konnect: приложение для OBD-II.">
+  <title>Денис Кармышаков · Denis Karmyshakov</title>
+  <meta name="description" content="Денис Кармышаков — Android-разработчик, приложение D-Konnect. Denis Karmyshakov, Android developer — the D-Konnect app.">
   <link rel="canonical" href="https://denis55ka.app/">
+  <link rel="alternate" hreflang="ru" href="https://denis55ka.app/ru/">
+  <link rel="alternate" hreflang="en" href="https://denis55ka.app/en/">
+  <link rel="alternate" hreflang="x-default" href="https://denis55ka.app/">
   <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
+
+  <!--
+    Страница выбора языка, устроенная так же, как dkonnect/privacy/: ссылки видны всегда,
+    скрипт лишь опережает читателя, и при выключенном JavaScript страница остаётся рабочей.
+    Сама главная живёт по адресам /ru/ и /en/.
+  -->
 
   <main class="home">
     <div class="home__inner">
 
       <div class="home__name"><span class="brand__dot"></span>Денис Кармышаков</div>
-      <p class="home__role">Android-разработчик</p>
+      <p class="home__role">Android-разработчик · Android developer</p>
 
-      <p class="home__about">
-        Делаю приложения для Android. Здесь — то, что вышло за пределы личного пользования.
-      </p>
-
-      <section class="card">
-        <h2>D-Konnect</h2>
-        <p>
-          Приложение для OBD-II: подключается к Bluetooth-адаптеру ELM327 и показывает данные
-          автомобиля на приборной панели, которую вы собираете сами. Готовится к публикации.
-        </p>
-        <ul class="links">
-          <li><a href="/dkonnect/privacy/ru/">Политика конфиденциальности</a></li>
-          <li><a href="/dkonnect/privacy/en/">Privacy Policy (EN)</a></li>
-        </ul>
-      </section>
+      <ul class="choose">
+        <li>
+          <a href="ru/" lang="ru">
+            <span class="choose__lang">Русский</span>
+            <span class="choose__note">Сайт на русском</span>
+          </a>
+        </li>
+        <li>
+          <a href="en/" lang="en">
+            <span class="choose__lang">English</span>
+            <span class="choose__note">The site in English</span>
+          </a>
+        </li>
+      </ul>
 
       <div class="home__foot">
-        <span>© 2026 Денис Кармышаков</span>
         <a href="mailto:hello@denis55ka.app">hello@denis55ka.app</a>
       </div>
 
     </div>
   </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var list = navigator.languages && navigator.languages.length
+        ? navigator.languages
+        : [navigator.language || "en"];
+
+      var target = null;
+
+      for (var i = 0; i < list.length && !target; i++) {
+        var code = String(list[i]).toLowerCase();
+        if (code.indexOf("ru") === 0) target = "ru/";
+        else if (code.indexOf("en") === 0) target = "en/";
+      }
+
+      // replace, а не переход: иначе кнопка «назад» возвращала бы сюда
+      // и тут же уводила обратно.
+      location.replace(target || "en/");
+    })();
+  </script>
 
 </body>
 </html>

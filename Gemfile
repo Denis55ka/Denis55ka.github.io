@@ -5,3 +5,8 @@
 source "https://rubygems.org"
 
 gem "github-pages", group: :jekyll_plugins
+
+# Локальный предпросмотр на Ruby 3.x: Jekyll 3 из github-pages ещё рассчитывает на webrick из
+# стандартной библиотеки, а его там больше нет. На Windows вдобавок нет базы часовых поясов.
+gem "webrick"
+gem "tzinfo-data", platforms: :windows

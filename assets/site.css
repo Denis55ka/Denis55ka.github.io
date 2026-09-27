@@ -301,10 +301,16 @@ a:hover { border-bottom-color: var(--data); }
 
 .home__inner { width: 100%; max-width: 620px; margin-inline: auto; padding: 64px 24px; }
 
+/* Имя и переключатель языка в одну строку — как бренд и переключатель в шапке документов. */
+.home__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+
 .home__name {
   display: flex; align-items: center; gap: 10px;
   font-family: var(--font-display); font-weight: 700;
   letter-spacing: -.025em; font-size: 26px;
+  /* Английское имя на телефоне встаёт в две строки, и с межстрочным от основного текста
+     они расходились почти на строку. */
+  line-height: 1.2;
 }
 
 .home__role {
@@ -328,6 +334,24 @@ a:hover { border-bottom-color: var(--data); }
 
 .links { margin: 18px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 20px; }
 .links a { font-size: 15px; }
+
+/* Магазины — главное действие карточки, поэтому кнопками, а не строкой ссылок рядом с политикой. */
+.stores { margin: 18px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+
+.stores a {
+  display: inline-flex; align-items: center;
+  padding: 9px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-display); font-weight: 600; font-size: 15px;
+  transition: border-color .15s ease;
+}
+
+.stores a:hover { border-color: var(--accent); }
+
+.stores + .links { margin-top: 14px; }
 
 /* Выбор языка на корне документа */
 .choose {
